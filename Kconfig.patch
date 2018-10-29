@@ -1,0 +1,39 @@
+--- Kconfig.iosched.old	2018-10-29 01:45:44.323212180 -0700
++++ Kconfig.iosched	2018-10-29 00:20:36.593468792 -0700
+@@ -1,4 +1,4 @@
+-f BLOCK
++if BLOCK
+ 
+ menu "IO Schedulers"
+ 
+@@ -12,6 +12,12 @@
+ 	  that do their own scheduling and require only minimal assistance from
+ 	  the kernel.
+ 
++config IOSCHED_LOOK
++	tristate "Look I/O Scheduler"
++	default y
++	---help---
++		Custom scheduler for class implementing the LOOK algorithm.
++
+ config IOSCHED_DEADLINE
+ 	tristate "Deadline I/O scheduler"
+ 	default y
+@@ -52,6 +58,9 @@
+ 	config DEFAULT_CFQ
+ 		bool "CFQ" if IOSCHED_CFQ=y
+ 
++	config DEFAULT_LOOK
++		bool "Look" if IOSCHED_LOOK=y
++
+ 	config DEFAULT_NOOP
+ 		bool "No-op"
+ 
+@@ -62,6 +71,7 @@
+ 	default "deadline" if DEFAULT_DEADLINE
+ 	default "cfq" if DEFAULT_CFQ
+ 	default "noop" if DEFAULT_NOOP
++	default "look" if DEFAULT_LOOK
+ 
+ endmenu
+ 
