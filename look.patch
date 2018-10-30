@@ -194,3 +194,46 @@
 +MODULE_AUTHOR("Nicholas Pugliese");
 +MODULE_LICENSE("GPL");
 +MODULE_DESCRIPTION("Look IO scheduler");
+
++++ Makefile	2018-10-29 00:18:29.671164674 -0700
+@@ -18,6 +18,7 @@
+ obj-$(CONFIG_IOSCHED_NOOP)	+= noop-iosched.o
+ obj-$(CONFIG_IOSCHED_DEADLINE)	+= deadline-iosched.o
+ obj-$(CONFIG_IOSCHED_CFQ)	+= cfq-iosched.o
++obj-$(CONFIG_IOSCHED_LOOK) += look-iosched.o
+ 
+ obj-$(CONFIG_BLOCK_COMPAT)	+= compat_ioctl.o
+ obj-$(CONFIG_BLK_CMDLINE_PARSER)	+= cmdline-parser.o
+
+--- Kconfig.iosched	2018-10-29 20:10:29.846840589 -0700
++++ Kconfig.iosched.new	2018-10-29 20:11:25.567835089 -0700
+@@ -12,6 +12,12 @@
+ 	  that do their own scheduling and require only minimal assistance from
+ 	  the kernel.
+ 
++config IOSCHED_LOOK
++	tristate "Look I/O Scheduler"
++	default y
++	---help---
++		Custom scheduler for class implementing the LOOK algorithm.
++
+ config IOSCHED_DEADLINE
+ 	tristate "Deadline I/O scheduler"
+ 	default y
+@@ -52,6 +58,9 @@
+ 	config DEFAULT_CFQ
+ 		bool "CFQ" if IOSCHED_CFQ=y
+ 
++	config DEFAULT_LOOK
++		bool "Look" if IOSCHED_LOOK=y
++
+ 	config DEFAULT_NOOP
+ 		bool "No-op"
+ 
+@@ -62,6 +71,7 @@
+ 	default "deadline" if DEFAULT_DEADLINE
+ 	default "cfq" if DEFAULT_CFQ
+ 	default "noop" if DEFAULT_NOOP
++	default "look" if DEFAULT_LOOK
+ 
+ endmenu
