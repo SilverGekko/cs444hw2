@@ -1,10 +1,5 @@
-+++ Kconfig.iosched	2018-10-29 00:20:36.593468792 -0700
-@@ -1,4 +1,4 @@
--f BLOCK
-+if BLOCK
- 
- menu "IO Schedulers"
- 
+--- Kconfig.iosched	2018-10-29 20:10:29.846840589 -0700
++++ Kconfig.iosched.new	2018-10-29 20:11:25.567835089 -0700
 @@ -12,6 +12,12 @@
  	  that do their own scheduling and require only minimal assistance from
  	  the kernel.
